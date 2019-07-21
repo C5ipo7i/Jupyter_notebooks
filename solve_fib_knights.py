@@ -26,7 +26,6 @@ def return_left(N):
     else:
         fib_arr = a_fib(max_num)
         index = np.where(fib_arr == N)[0]
-        print('index',index)
         # Check above and below for % 2 == 0
         if fib_arr[index+1] % 2 == 0:
             return int((fib_arr[index+1] / 2)[0])
@@ -57,7 +56,7 @@ def solve_knights_left(N,chair_position):
     used.add(end)
     used.add(pen_end)
     used.add(L)
-    solution_right = [pen_end,end]
+    right_side = [pen_end,end]
     episode = 0
     solution = [L]
     # compute max possibility
@@ -67,7 +66,6 @@ def solve_knights_left(N,chair_position):
         poss_fibs = fibs_between_numbers(next_num,N,fib_arr)
         poss_nums = np.subtract(poss_fibs,np.full(poss_fibs.shape[0],next_num,dtype=object))
         for poss in reversed(poss_nums):
-#             print('poss',poss)
             if poss in used:
                 pass
             else:
@@ -85,7 +83,7 @@ def solve_knights_left(N,chair_position):
 #             toc = time.time()
 #             print("Episode {}, len(solution) = {}, time taken so far {} seconds".format(episode,len(solution),(toc-start)))
 #             break
-    return solution[-1]#solution+solution_right for returning full list
+    return solution[-1]#solution+right_side for returning full list
 
 def main():
     # N = 144 # for testing purposes
