@@ -48,6 +48,7 @@ def first_single(N,max_num,fib_arr):
 
 # list is populated in reverse order
 def solve_knights_left(N,chair_position):
+    start = time.time()
     max_num = N+N #exclusive
     used = set()
     L = return_left(N)
@@ -58,37 +59,35 @@ def solve_knights_left(N,chair_position):
     used.add(L)
     right_side = [pen_end,end]
     episode = 0
-    solution = [L]
     # compute max possibility
     repeats = L
     next_num = L
-    while len(solution) < chair_position: #N-2 for solving full list
+    while episode < chair_position-1: #N-2 for solving full list 
         poss_fibs = fibs_between_numbers(next_num,N,fib_arr)
         poss_nums = np.subtract(poss_fibs,np.full(poss_fibs.shape[0],next_num,dtype=object))
         for poss in reversed(poss_nums):
             if poss in used:
                 pass
             else:
-                solution.append(poss)
                 used.add(poss)
                 next_num = poss
                 break
         episode += 1
-        if repeats == solution[-1]:
-            # stuck
-            break
-        else:
-            repeats = solution[-1]
-#         if episode % 100000 == 0:
-#             toc = time.time()
-#             print("Episode {}, len(solution) = {}, time taken so far {} seconds".format(episode,len(solution),(toc-start)))
+        # if repeats == solution[-1]:
+        #     # stuck
+        #     break
+        # else:
+        #     repeats = solution[-1]
+        if episode % 1e+10 == 0:
+            toc = time.time()
+            print("Episode {}, len(solution) = {}, time taken so far {} seconds".format(episode,next_num,(toc-start)))
 #             break
-    return solution[-1]#solution+right_side for returning full list
+    return next_num#solution+right_side for returning full list
 
 def main():
-    # N = 144 # for testing purposes
+    N = 2178309 # for testing purposes
     full_N = 99194853094755497
-    chair_position_left = 1e+16
+    chair_position_left = 10000000000000000
     # Because we are building the array from the reverse position
     # chair_position_right = int(full_N - chair_position_left)
 
