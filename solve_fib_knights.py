@@ -11,6 +11,12 @@ def a_fib(N):
         l.append(l[-2]+l[-1])
     return np.array(l[2:])
 
+def s_fib(N):
+    l = [0,1]
+    while l[-2]+l[-1] < N:
+        l.append(l[-2]+l[-1])
+    return set(l)
+
 def return_left(N):
     max_num = N+N #exclusive
     fib_set = s_fib(max_num)
@@ -60,9 +66,6 @@ def solve_knights_left(N,chair_position):
     while len(solution) < chair_position: #N-2 for solving full list
         poss_fibs = fibs_between_numbers(next_num,N,fib_arr)
         poss_nums = np.subtract(poss_fibs,np.full(poss_fibs.shape[0],next_num,dtype=object))
-#         print('solution',solution)
-#         print('poss_fibs',poss_fibs)
-#         print('poss_nums',poss_nums)
         for poss in reversed(poss_nums):
 #             print('poss',poss)
             if poss in used:
