@@ -1,0 +1,52 @@
+class Config(object):
+    def __init__(self,agent): 
+        if agent == 'PPO':
+            self.name = agent
+            self.gae_lambda=0.95
+            self.num_agents=1
+            self.batch_size=32
+            self.gradient_clip=10
+            self.SGD_epoch=10
+            self.epsilon=0.2
+            self.beta=0.01
+            self.gamma=0.99
+            self.lr = 1e-4
+            self.L2 = 0.01
+            self.checkpoint_path = 'model_weights/PPO.ckpt'
+        elif agent == "ddpg":
+            self.seed = 99
+            self.name = agent
+            self.num_agents = 2
+            self.QLR = 0.001
+            self.ALR = 0.0001
+            self.gamma = 0.99
+            self.L2 = 0 # 0.1
+            self.tau=0.01 # 0.001
+            self.noise_decay=0.9995
+            self.gae_lambda = 0.97
+            self.clip_norm = 10
+            # Buffer
+            self.buffer_size = int(1e4)
+            self.min_buffer_size = int(1e3)
+            self.batch_size = 256
+            # Priority Replay
+            self.ALPHA = 0.6 # 0.7 or 0.6
+            self.START_BETA = 0.5 # from 0.5-1
+            self.END_BETA = 1
+            # distributional
+            self.N_atoms = 51
+            self.v_min = -2
+            self.v_max = 2
+            self.delta_z = (self.v_min - self.v_max) / (self.N_atoms - 1)
+            # Tennis
+            self.action_low=-1.0 
+            self.action_high=1.0
+            self.winning_condition = 10
+            # Training
+            self.episodes = 4000
+            self.tmax = 1000
+            self.print_every = 4
+            self.SGD_epoch = 1
+            self.checkpoint_path = 'model_weights/ddpg.ckpt'
+        else:
+            raise ValueError('Agent not implemented')
